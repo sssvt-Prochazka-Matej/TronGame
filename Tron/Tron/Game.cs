@@ -228,6 +228,10 @@ namespace Tron
                 case Keys.Space:
                     velocity2 = 8;
                     break;
+                //end
+                case Keys.Escape:
+                    this.Close();
+                    break;
             }
 
         }
