@@ -244,8 +244,10 @@ namespace Tron
                     this.Controls.Remove(item);
             }
 
-            Bike1.Location = RandomPoint(200,220);
-            Bike2.Location = RandomPoint(700,700);
+            Bike1.Location = RandomPoint(650,750);
+            Bike2.Location = RandomPoint(200,220);
+            velocity1 = 4;
+            velocity2 = 4;
 
         }
 
