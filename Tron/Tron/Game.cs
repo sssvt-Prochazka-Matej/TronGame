@@ -22,6 +22,9 @@ namespace Tron
         int velocity1 = 4;
         int velocity2 = 4;
 
+        int score1 = 0;
+        int score2 = 0;
+
         public Game()
         {
             InitializeComponent();
@@ -40,14 +43,21 @@ namespace Tron
                     {
                         timer.Stop();
                         MessageBox.Show("Player 1 wins");
-                        this.Close();
+                        score1++;
+                        RestarGame();
+                        lblP1.Text = ": " + Convert.ToString(score1);
+                        timer.Start();
+                       
                     }
 
                     if (Bike2.Bounds.IntersectsWith(x.Bounds))
                     {
                         timer.Stop();
                         MessageBox.Show("Player 2 wins");
-                        this.Close();
+                        score2++;
+                        RestarGame();
+                        lblP2.Text = Convert.ToString(score2) + " :";
+                        timer.Start();
                     }
                 }
             }
@@ -222,7 +232,29 @@ namespace Tron
 
         }
 
+        public void RestarGame()
+        {
+            foreach (Control item in this.Controls.OfType<PictureBox>().ToList())
+            {
+                if ((string)item.Tag == "trail")
+                    this.Controls.Remove(item);
+            }
 
+            Bike1.Location = RandomPoint(200,220);
+            Bike2.Location = RandomPoint(700,700);
+
+        }
+
+        public Point RandomPoint(int i, int ii)
+        {
+            Random rand = new Random();
+
+            int x = rand.Next(i, 800);
+            int y = rand.Next(ii, 800);
+
+            Point p = new Point(x, y);
+            return p;
+        }
        
        
     }

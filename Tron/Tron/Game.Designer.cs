@@ -40,6 +40,8 @@ namespace Tron
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.lblP1 = new System.Windows.Forms.Label();
+            this.lblP2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Bike1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Bike2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -133,12 +135,38 @@ namespace Tron
             this.pictureBox6.TabIndex = 5;
             this.pictureBox6.TabStop = false;
             // 
+            // lblP1
+            // 
+            this.lblP1.AutoSize = true;
+            this.lblP1.BackColor = System.Drawing.Color.Black;
+            this.lblP1.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblP1.ForeColor = System.Drawing.Color.Aqua;
+            this.lblP1.Location = new System.Drawing.Point(200, 22);
+            this.lblP1.Name = "lblP1";
+            this.lblP1.Size = new System.Drawing.Size(54, 37);
+            this.lblP1.TabIndex = 6;
+            this.lblP1.Text = ": 0";
+            // 
+            // lblP2
+            // 
+            this.lblP2.AutoSize = true;
+            this.lblP2.BackColor = System.Drawing.Color.Black;
+            this.lblP2.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblP2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(50)))));
+            this.lblP2.Location = new System.Drawing.Point(737, 22);
+            this.lblP2.Name = "lblP2";
+            this.lblP2.Size = new System.Drawing.Size(54, 37);
+            this.lblP2.TabIndex = 6;
+            this.lblP2.Text = "0 :";
+            // 
             // Game
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(984, 961);
+            this.Controls.Add(this.lblP2);
+            this.Controls.Add(this.lblP1);
             this.Controls.Add(this.pictureBox6);
             this.Controls.Add(this.pictureBox5);
             this.Controls.Add(this.pictureBox4);
@@ -161,6 +189,7 @@ namespace Tron
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -176,6 +205,8 @@ namespace Tron
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.PictureBox pictureBox6;
+        private System.Windows.Forms.Label lblP1;
+        private System.Windows.Forms.Label lblP2;
     }
 }
 
