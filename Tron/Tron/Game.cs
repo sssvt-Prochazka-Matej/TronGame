@@ -13,18 +13,11 @@ namespace Tron
     public partial class Game : Form
     {
 
-        bool right1, left1, up1;
-        bool down1 = true;
+        Motorbike motorbike1 = new Motorbike(Direction.Down);
 
-        bool right2, left2, down2;
-        bool up2 = true;
+        Motorbike motorbike2 = new Motorbike(Direction.Up);
 
-        int velocity1 = 4;
-        int velocity2 = 4;
-
-        int score1 = 0;
-        int score2 = 0;
-
+        
         public Game()
         {
             InitializeComponent();
@@ -32,8 +25,8 @@ namespace Tron
         private void timer_Tick(object sender, EventArgs e)
         {
 
-            TickAction(Bike1, Color.Orange,left1,right1,up1,down1, velocity1);
-            TickAction(Bike2, Color.Aqua, left2, right2, up2, down2, velocity2);
+            TickAction(Bike1, Color.Orange,motorbike1.Direction, motorbike1.Velocity);
+            TickAction(Bike2, Color.Aqua, motorbike2.Direction, motorbike2.Velocity);
 
             foreach (Control x in this.Controls)
             {
@@ -43,9 +36,9 @@ namespace Tron
                     {
                         timer.Stop();
                         MessageBox.Show("Player 1 wins");
-                        score1++;
+                        motorbike1.Score++;
                         RestarGame();
-                        lblP1.Text = ": " + Convert.ToString(score1);
+                        lblP1.Text = ": " + Convert.ToString(motorbike1.Score);
                         timer.Start();
                        
                     }
@@ -54,9 +47,9 @@ namespace Tron
                     {
                         timer.Stop();
                         MessageBox.Show("Player 2 wins");
-                        score2++;
+                        motorbike2.Score++;
                         RestarGame();
-                        lblP2.Text = Convert.ToString(score2) + " :";
+                        lblP2.Text = Convert.ToString(motorbike2.Score) + " :";
                         timer.Start();
                     }
                 }
@@ -79,52 +72,50 @@ namespace Tron
             this.Controls.Add(newTrail);
         }
 
-        public void TickAction(PictureBox box, Color color, bool left, bool right, bool up, bool down,int velocity)
+        public void TickAction(PictureBox box, Color color, Direction direction,int velocity)
         {
             switch (velocity)
             {
                 case 4:
-                    if (left)
+                    switch (direction)
                     {
-                        box.Left -= velocity;
-                        SpawnTrail(box.Location.X + 21, box.Location.Y, color, 20, 4);
-                    }
-                    if (right)
-                    {
-                        box.Left += velocity;
-                        SpawnTrail(box.Location.X - 5, box.Location.Y, color, 20, 4);
-                    }
-                    if (up)
-                    {
-                        box.Top -= velocity;
-                        SpawnTrail(box.Location.X, box.Location.Y + 21, color, 4, 20);
-                    }
-                    if (down)
-                    {
-                        box.Top += velocity;
-                        SpawnTrail(box.Location.X, box.Location.Y - 5, color, 4, 20);
+                        case Direction.Left:
+                            box.Left -= velocity;
+                            SpawnTrail(box.Location.X + 21, box.Location.Y, color, 20, 4);
+                            break;
+                        case Direction.Right:
+                            box.Left += velocity;
+                            SpawnTrail(box.Location.X - 5, box.Location.Y, color, 20, 4);
+                            break;
+                        case Direction.Up:
+                            box.Top -= velocity;
+                            SpawnTrail(box.Location.X, box.Location.Y + 21, color, 4, 20);
+                            break;
+                        case Direction.Down:
+                            box.Top += velocity;
+                            SpawnTrail(box.Location.X, box.Location.Y - 5, color, 4, 20);
+                            break;
                     }
                     break;
                 case 8:
-                    if (left)
+                    switch (direction)
                     {
-                        box.Left -= velocity;
-                        SpawnTrail(box.Location.X + 21, box.Location.Y, color, 20, 8);
-                    }
-                    if (right)
-                    {
-                        box.Left += velocity;
-                        SpawnTrail(box.Location.X - 9, box.Location.Y, color, 20, 8);
-                    }
-                    if (up)
-                    {
-                        box.Top -= velocity;
-                        SpawnTrail(box.Location.X, box.Location.Y + 21, color, 8, 20);
-                    }
-                    if (down)
-                    {
-                        box.Top += velocity;
-                        SpawnTrail(box.Location.X, box.Location.Y - 9, color, 8, 20);
+                        case Direction.Left:
+                            box.Left -= velocity;
+                            SpawnTrail(box.Location.X + 21, box.Location.Y, color, 20, 8);
+                            break;
+                        case Direction.Right:
+                            box.Left += velocity;
+                            SpawnTrail(box.Location.X - 9, box.Location.Y, color, 20, 8);
+                            break;
+                        case Direction.Up:
+                            box.Top -= velocity;
+                            SpawnTrail(box.Location.X, box.Location.Y + 21, color, 8, 20);
+                            break;
+                        case Direction.Down:
+                            box.Top += velocity;
+                            SpawnTrail(box.Location.X, box.Location.Y - 9, color, 8, 20);
+                            break;
                     }
                     break;
             }
@@ -135,10 +126,10 @@ namespace Tron
             switch (e.KeyCode)
             {
                 case Keys.Enter:
-                    velocity1 = 4;
+                    motorbike1.Velocity = 4;
                     break;
                 case Keys.Space:
-                    velocity2 = 4;
+                    motorbike2.Velocity = 4;
                     break;
 
             }
@@ -150,83 +141,59 @@ namespace Tron
             {
                 //player1
                 case Keys.Left:
-                    if (!right1 && velocity1 == 4)
+                    if (motorbike1.Direction != Direction.Right && motorbike1.Velocity == 4)
                     {
-                        left1 = true;
-                        right1 = false;
-                        up1 = false;
-                        down1 = false;
+                        motorbike1.Direction = Direction.Left;
                     }
                     break;
                 case Keys.Right:
-                    if (!left1 && velocity1 == 4)
+                    if (motorbike1.Direction != Direction.Left && motorbike1.Velocity == 4)
                     {
-                        left1 = false;
-                        right1 = true;
-                        up1 = false;
-                        down1 = false;
+                        motorbike1.Direction = Direction.Right;
                     }
                     break;
                 case Keys.Up:
-                    if (!down1 && velocity1 == 4)
+                    if (motorbike1.Direction != Direction.Down && motorbike1.Velocity == 4)
                     {
-                        left1 = false;
-                        right1 = false;
-                        up1 = true;
-                        down1 = false;
+                        motorbike1.Direction = Direction.Up;
                     }
                     break;
                 case Keys.Down:
-                    if (!up1 && velocity1 == 4)
+                    if (motorbike1.Direction != Direction.Up && motorbike1.Velocity == 4)
                     {
-                        left1 = false;
-                        right1 = false;
-                        up1 = false;
-                        down1 = true;
+                        motorbike1.Direction = Direction.Down;
                     }
                     break;
                 case Keys.Enter:
-                    velocity1 = 8;
+                    motorbike1.Velocity = 8;
                     break;
                 //player 2
                 case Keys.A:
-                    if (!right2 && velocity2 == 4)
+                    if (motorbike2.Direction != Direction.Right && motorbike2.Velocity == 4)
                     {
-                        left2 = true;
-                        right2 = false;
-                        up2 = false;
-                        down2 = false;
+                        motorbike2.Direction = Direction.Left;
                     }
                     break;
                 case Keys.D:
-                    if (!left2 && velocity2 == 4)
+                    if (motorbike2.Direction != Direction.Left && motorbike2.Velocity == 4)
                     {
-                        left2 = false;
-                        right2 = true;
-                        up2 = false;
-                        down2 = false;
+                        motorbike2.Direction = Direction.Right;
                     }
                     break;
                 case Keys.W:
-                    if (!down2 && velocity2 == 4)
+                    if (motorbike2.Direction != Direction.Down && motorbike2.Velocity == 4)
                     {
-                        left2 = false;
-                        right2 = false;
-                        up2 = true;
-                        down2 = false;
+                        motorbike2.Direction = Direction.Up;
                     }
                     break;
                 case Keys.S:
-                    if (!up2 && velocity2 == 4)
+                    if (motorbike2.Direction != Direction.Up && motorbike2.Velocity == 4)
                     {
-                        left2 = false;
-                        right2 = false;
-                        up2 = false;
-                        down2 = true;
+                        motorbike2.Direction = Direction.Down;
                     }
                     break;
                 case Keys.Space:
-                    velocity2 = 8;
+                    motorbike2.Velocity = 8;
                     break;
                 //end
                 case Keys.Escape:
@@ -246,8 +213,8 @@ namespace Tron
 
             Bike1.Location = RandomPoint(650,750);
             Bike2.Location = RandomPoint(200,220);
-            velocity1 = 4;
-            velocity2 = 4;
+            motorbike1.Velocity = 4;
+            motorbike2.Velocity = 4;
 
         }
 
